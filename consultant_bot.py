@@ -20,7 +20,7 @@ from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-BOT_TOKEN = "9221569522:AAEJakQL-EEQMQc1x6uNShGDMK43eHxmX2E"
+BOT_TOKEN = "9221569522:AAFp9XInJLAMOdJ-2_Q03fWQW7JPwoy9tcg"
 ADMIN_ID = 6467020677 # <--- ВСТАВЬ СЮДА СВОЙ ID (ТОЛЬКО ЦИФРЫ)
 
 bot = Bot(token=BOT_TOKEN)
