@@ -20,7 +20,7 @@ from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-BOT_TOKEN = "9221569522:AAF_8qHB_wBjuNOp4xuGPhM54Mr9cTZFecA"
+BOT_TOKEN = "9221569522:AAGgth-9Y35cs6AlN_8FSGYIFq002-eGrVE"
 ADMIN_ID = 6467020677 # <--- ВСТАВЬ СЮДА СВОЙ ID (ТОЛЬКО ЦИФРЫ)
 
 bot = Bot(token=BOT_TOKEN)
@@ -157,19 +157,22 @@ async def cmd_stats(message: types.Message):
             
     await message.answer(report, parse_mode="Markdown")
 async def main():
-    if __name__ == "__main__":
-    # Запускаем бота в фоновом потоке
-        import threading
-    threading.Thread(target=lambda: asyncio.run(main()), daemon=True).start()
-
-    # Запускаем веб-сервер в главном потоке, чтобы Render видел порт
-    port = int(os.environ.get("PORT", 10000))
+    logging.basicConfig(level=logging.INFO)
+    init_db()
+    print("Запускаю бота...")
+    await dp.start_polling(bot)
 
 if __name__ == "__main__":
     import threading
     
+    # Запускаем бота в отдельном потоке
     def run_bot():
         asyncio.run(main())
         
-    # Запускаем бота в фоне
     threading.Thread(target=run_bot, daemon=True).start()
+    
+    # Запускаем Flask для Render
+    print("Веб-сервер запущен!")
+    port = int(os.environ.get("PORT", 10000))
+    app_web.run(host='0.0.0.0', port=port, debug=False, use_reloader=False)
+    
