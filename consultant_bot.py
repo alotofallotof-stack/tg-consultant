@@ -157,12 +157,14 @@ async def cmd_stats(message: types.Message):
             
     await message.answer(report, parse_mode="Markdown")
 async def main():
-    # Запускаем веб-сервер в отдельном потоке
-    threading.Thread(target=run_web, daemon=True).start()
-    
     logging.basicConfig(level=logging.INFO)
     init_db()
     print("Запускаю бота...")
+    
+    # Запускаем веб-сервер в фоне (чтобы Render был доволен)
+    threading.Thread(target=run_web, daemon=True).start()
+    
+    # Запускаем бота
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
