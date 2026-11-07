@@ -159,7 +159,7 @@ async def cmd_stats(message: types.Message):
 async def main():
 if __name__ == "__main__":
     # Запускаем бота в фоновом потоке
-    import threading
+        import threading
     threading.Thread(target=lambda: asyncio.run(main()), daemon=True).start()
 
     # Запускаем веб-сервер в главном потоке, чтобы Render видел порт
