@@ -157,7 +157,7 @@ async def cmd_stats(message: types.Message):
             
     await message.answer(report, parse_mode="Markdown")
 async def main():
-if __name__ == "__main__":
+if name == "main":
     # Запускаем бота в фоне
     def start_bot():
         asyncio.run(main())
