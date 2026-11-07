@@ -1,1 +1,1 @@
-web: python consultant_bot.py
+web: python consultant_bot:app_web
