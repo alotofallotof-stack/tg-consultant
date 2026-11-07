@@ -157,15 +157,16 @@ async def cmd_stats(message: types.Message):
             
     await message.answer(report, parse_mode="Markdown")
 async def main():
-    logging.basicConfig(level=logging.INFO)
-    init_db()
-    print("Запускаю бота...")
-    
-    # Запускаем веб-сервер в фоне (чтобы Render был доволен)
-    threading.Thread(target=run_web, daemon=True).start()
-    
-    # Запускаем бота
-    await dp.start_polling(bot)
+if __name__ == "__main__":
+    # Запускаем бота в фоне
+    def start_bot():
+        asyncio.run(main())
+
+    threading.Thread(target=start_bot, daemon=True).start()
+
+    # Запускаем веб-сервер в главном потоке, чтобы Render видел порт
+    port = int(os.environ.get("PORT", 10000))
+    app_web.run(host='0.0.0.0', port=port)
 
 if __name__ == "__main__":
     asyncio.run(main())
