@@ -164,7 +164,13 @@ async def main():
 
     # Запускаем веб-сервер в главном потоке, чтобы Render видел порт
     port = int(os.environ.get("PORT", 10000))
-    app_web.run(host='0.0.0.0', port=port)
 
 if __name__ == "__main__":
+if name == "main":
+    # Запускаем бота в фоновом потоке (чтобы он работал вместе с gunicorn)
+    def run_bot():
+        asyncio.run(main())
+    
+    import threading
+    threading.Thread(target=run_bot, daemon=True).start()
     asyncio.run(main())
