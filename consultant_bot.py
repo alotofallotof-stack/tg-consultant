@@ -157,7 +157,7 @@ async def cmd_stats(message: types.Message):
             
     await message.answer(report, parse_mode="Markdown")
 async def main():
-if name == "main":
+if __name__ == "__main__":
     # Запускаем бота в фоновом потоке
     import threading
     threading.Thread(target=lambda: asyncio.run(main()), daemon=True).start()
