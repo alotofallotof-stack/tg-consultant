@@ -1,6 +1,20 @@
 import asyncio
 import logging
 import sqlite3
+from flask import Flask
+import threading
+import os
+
+# Создаем фейковый веб-сервер
+app_web = Flask(__name__)
+
+@app_web.route('/')
+def health():
+    return "Bot is running!"
+
+def run_web():
+    port = int(os.environ.get("PORT", 10000))
+    app_web.run(host='0.0.0.0', port=port, debug=False, use_reloader=False)
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
@@ -143,9 +157,12 @@ async def cmd_stats(message: types.Message):
             
     await message.answer(report, parse_mode="Markdown")
 async def main():
+    # Запускаем веб-сервер в отдельном потоке
+    threading.Thread(target=run_web, daemon=True).start()
+    
     logging.basicConfig(level=logging.INFO)
     init_db()
-    print("Бот запущен и слушает сообщения...")
+    print("Запускаю бота...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
