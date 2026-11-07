@@ -158,11 +158,9 @@ async def cmd_stats(message: types.Message):
     await message.answer(report, parse_mode="Markdown")
 async def main():
 if name == "main":
-    # Запускаем бота в фоне
-    def start_bot():
-        asyncio.run(main())
-
-    threading.Thread(target=start_bot, daemon=True).start()
+    # Запускаем бота в фоновом потоке
+    import threading
+    threading.Thread(target=lambda: asyncio.run(main()), daemon=True).start()
 
     # Запускаем веб-сервер в главном потоке, чтобы Render видел порт
     port = int(os.environ.get("PORT", 10000))
